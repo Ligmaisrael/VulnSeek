@@ -1,7 +1,12 @@
+from attacks.interface import AttackInterface
+
 class Menu():
 
     def __init__(self, attacks):
         """Every Attack must implement AttackInterface"""
+        for atk in attacks:
+            if not issubclass(type(atk), AttackInterface):
+                raise TypeError("all attacks must be a subclass of AttackInterface, " + str(type(atk)) + " is not")
         self.attacks = attacks
     
     def run(self):
