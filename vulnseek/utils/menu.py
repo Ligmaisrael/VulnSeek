@@ -2,18 +2,20 @@ import sys
 from os import system
 from attacks.interface import AttackInterface
 
-class Menu():
 
+class Menu:
     def __init__(self, attacks):
         """Every Attack must implement AttackInterface"""
         for atk in attacks:
             if not issubclass(type(atk), AttackInterface):
-                raise TypeError("all attacks must be a subclass of AttackInterface, " + str(type(atk)) + " is not")
+                raise TypeError(
+                    f"all attacks must be a subclass of AttackInterface, {type(atk)} is not"
+                )
         self.attacks = attacks
-    
+
     def run(self):
-        choice = -1;
-        while (choice != 0):
+        choice = -1
+        while choice != 0:
             clear_screen()
             print("Welcome to VulnSeek")
             print()
@@ -45,10 +47,10 @@ class Menu():
             clear_screen_with_message("Please choose one of the available options")
             return -1
         return choice
-    
+
     def list_entries(self):
         for atk in self.attacks:
-            print(str(self.attacks.index(atk)+1) + ".", atk.title())
+            print(f"{self.attacks.index(atk) + 1}. {atk.title()}")
         print("0. Quit")
         return
 
@@ -58,10 +60,13 @@ class Menu():
         exit(0)
         return
 
+
 print_without_newline = sys.stdout.write
- 
+
+
 def clear_screen():
-        system('clear -x')
+    system("clear -x")
+
 
 def clear_screen_with_message(message):
     clear_screen()

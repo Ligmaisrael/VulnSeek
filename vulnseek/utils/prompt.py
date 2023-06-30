@@ -15,6 +15,7 @@ def prompt_param_required(param_name):
 
     return value
 
+
 def prompt_param_with_default_value(param_name, default_value):
     """
     Prompts the user to input a value for param_name with the option
@@ -28,7 +29,10 @@ def prompt_param_with_default_value(param_name, default_value):
 
     return value
 
-def prompt_param_with_default_value_and_name(param_name, default_value, default_value_name):
+
+def prompt_param_with_default_value_and_name(
+    param_name, default_value, default_value_name
+):
     """
     Prompts the user to input a value for param_name with the option
     to input an empty string, which will be resolved to default_value
