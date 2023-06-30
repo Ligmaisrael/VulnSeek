@@ -9,6 +9,7 @@ class DirectoryBruteForce(AttackInterface):
         print("pretending to try /admin")
         print("pretending to try /admin")
         print("pretending to try /admin")
+        input()
         return
     
     def output_filename(self):
