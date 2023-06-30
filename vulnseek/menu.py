@@ -24,6 +24,7 @@ class Menu():
                 self.quit()
             elif choice > 0:
                 choice -= 1
+                self.attacks[choice].prompt_for_params()
                 self.attacks[choice].run()
                 choice = -1
         return

@@ -1,26 +1,28 @@
-from abc import ABC, abstractmethod
-
 class AttackInterface:
     """Attack to be used on an API"""
 
-    @abstractmethod
     def title(self):
         """
         Returns a string to display in main menu when selecting attacks
         """
-        return
+        raise NotImplementedError
     
-    @abstractmethod
+    def prompt_for_params(self):
+        """
+        Runs functions related to prompting the user to input parameters
+        needed to run the attack
+        """
+        raise NotImplementedError
+    
     def run(self):
         """
         Runs the attack
         All outputs to stdout and stderr must also be outputted to the output file
         """
-        return
+        raise NotImplementedError
     
-    @abstractmethod
     def output_filename(self):
         """
         Returns a string indicating the output filename of this attack
         """
-        return
+        raise NotImplementedError
