@@ -1,4 +1,4 @@
-import menu
+import utils.menu as menu
 import attacks.dir_bf as dir_bf
 
 def main():
