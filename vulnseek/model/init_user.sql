@@ -1,0 +1,11 @@
+DROP DATABASE IF EXISTS vulnseek;
+
+CREATE DATABASE vulnseek;
+
+DROP USER IF EXISTS vulnseek;
+
+CREATE USER vulnseek WITH PASSWORD 'vULn533k3R';
+
+ALTER DATABASE vulnseek OWNER TO vulnseek;
+
+GRANT ALL PRIVILEGES ON DATABASE vulnseek TO vulnseek;

@@ -1,9 +1,9 @@
 import utils.menu as menu
-import attacks.dir_bf as dir_bf
+from attacks.dir_bf.dir_bf import DirectoryBruteForce
 
 
 def main():
-    dbf = dir_bf.DirectoryBruteForce()
+    dbf = DirectoryBruteForce()
 
     main_menu = menu.Menu([dbf])
     main_menu.run()
