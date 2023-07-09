@@ -1,16 +1,14 @@
 from attacks.interface import AttackInterface
-from attacks.dir_bf.model import DirectoryBruteForceStore
 from utils.prompt import *
-from config.config import config_parse
+from model.loot import LootStore
 import requests
-import psycopg2
+from model.structure.loot import LootStructure
 
 
 class DirectoryBruteForce(AttackInterface):
     def __init__(self):
         super().__init__()
-        dsn_dict = config_parse("config/db.conf", "postgresql")
-        self.store = DirectoryBruteForceStore(dsn_dict, "dir_bf")
+        self.store = LootStore()
 
     def title(self):
         return "Directory Brute Force"
@@ -38,7 +36,18 @@ class DirectoryBruteForce(AttackInterface):
             r = requests.get(full_url)
             if r.status_code == 200:
                 print(f"found endpoint {endpoint}")
-                self.store.store_one(endpoint, r.text)
+                loot = (
+                    LootStructure()
+                    .builder()
+                    .scan_id(123)
+                    .endpoint(endpoint)
+                    .payload(endpoint)
+                    .response_code(r.status_code)
+                    .response_headers(str(r.headers))
+                    .response_body(r.text)
+                    .build()
+                )
+                self.store.store_one(loot)
                 found_count += 1
                 found_endpoints.append("/" + endpoint)
 
