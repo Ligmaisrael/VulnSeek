@@ -1,24 +1,17 @@
 import psycopg2
 from config.config import config_parse
 from model.structure.loot import LootStructure
+from model.interface import StoreInterface
 
 
-class LootStore:
+class LootStore(StoreInterface):
     """Storage of loot from an Attack"""
 
     def __init__(self):
-        dsn_dict = config_parse("config/db.conf", "postgresql")
-        self.conn = psycopg2.connect(**dsn_dict)
-        self.cur = self.conn.cursor()
         self.table_name = config_parse("config/db.conf", "tables").get("loot")
-        self.ensure_table_exists()
+        super().__init__()
 
     def ensure_table_exists(self):
-        """
-        Ensures that the "loot" table exists
-        This will be called by __init__()
-        """
-
         self.cur.execute(
             f"""
             CREATE TABLE IF NOT EXISTS {self.table_name} (
@@ -35,10 +28,6 @@ class LootStore:
         self.conn.commit()
 
     def store_one(self, loot_structure: LootStructure):
-        """
-        Stores 1 row of loot to db
-        """
-
         self.cur.execute(
             f"""
             INSERT INTO {self.table_name}

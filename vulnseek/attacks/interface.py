@@ -20,9 +20,3 @@ class AttackInterface:
         All outputs to stdout and stderr must also be outputted to the output file
         """
         raise NotImplementedError
-
-    def output_filename(self):
-        """
-        Returns a string indicating the output filename of this attack
-        """
-        raise NotImplementedError
