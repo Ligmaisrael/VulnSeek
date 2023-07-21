@@ -29,11 +29,7 @@ class DirectoryBruteForce(AttackInterface):
         wordlist = open(self.path_to_wordlist, "r")
         print("reading from wordlist file", self.path_to_wordlist)
         scan_id = self.history_store.store_one(
-            HistoryStructure()
-            .builder()
-            .scan_type("dir_bf")
-            .target_url(self.url)
-            .build()
+            HistoryStructure.builder().scan_type("dir_bf").target_url(self.url).build()
         )
 
         found_count = 0
@@ -50,8 +46,7 @@ class DirectoryBruteForce(AttackInterface):
                 clear_line()
                 print(f"found endpoint {endpoint}")
                 self.loot_store.store_one(
-                    LootStructure()
-                    .builder()
+                    LootStructure.builder()
                     .scan_id(scan_id)
                     .endpoint(endpoint)
                     .payload(endpoint)

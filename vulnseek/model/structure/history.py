@@ -33,5 +33,6 @@ class HistoryStructure:
         self.timestamp = None
         self.target_url = None
 
-    def builder(self) -> HistoryStructureBuilder:
+    @staticmethod
+    def builder() -> HistoryStructureBuilder:
         return HistoryStructureBuilder()

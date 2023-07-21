@@ -39,5 +39,6 @@ class LootStructure:
         self.response_headers = None
         self.response_body = None
 
+    @staticmethod
     def builder(self) -> LootStructureBuilder:
         return LootStructureBuilder()
