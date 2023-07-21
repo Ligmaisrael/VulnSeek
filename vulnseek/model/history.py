@@ -7,8 +7,7 @@ class HistoryStore(StoreInterface):
     """Storage of all Attacks ran on all targets"""
 
     def __init__(self):
-        self.table_name = config_parse("config/db.conf", "tables").get("history")
-        super().__init__()
+        super().__init__("history")
 
     def ensure_table_exists(self):
         self.cur.execute(

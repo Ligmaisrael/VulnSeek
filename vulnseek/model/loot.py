@@ -7,8 +7,7 @@ class LootStore(StoreInterface):
     """Storage of loot from an Attack"""
 
     def __init__(self):
-        self.table_name = config_parse("config/db.conf", "tables").get("loot")
-        super().__init__()
+        super().__init__("loot")
 
     def ensure_table_exists(self):
         self.cur.execute(

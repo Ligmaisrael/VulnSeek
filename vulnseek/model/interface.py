@@ -1,15 +1,25 @@
 import psycopg2
+from psycopg2.extensions import connection
 from config.config import config_parse
 
 
 class StoreInterface:
     """Interface for storage to db"""
 
-    def __init__(self):
-        dsn_dict = config_parse("config/db.conf", "postgresql")
-        self.conn = psycopg2.connection(psycopg2.connect(**dsn_dict))
+    def __init__(self, table_name_key):
+        self.conn = self._connect()
         self.cur = self.conn.cursor()
+        self.table_name = config_parse("config/db.conf", "table_names").get(
+            table_name_key
+        )
         self.ensure_table_exists()
+
+    def _connect(self) -> connection:
+        """
+        Wrapper function for type definition
+        """
+        dsn_dict = config_parse("config/db.conf", "postgresql")
+        return psycopg2.connect(**dsn_dict)
 
     def ensure_table_exists(self):
         """
