@@ -7,7 +7,7 @@ class StoreInterface:
 
     def __init__(self):
         dsn_dict = config_parse("config/db.conf", "postgresql")
-        self.conn = psycopg2.connect(**dsn_dict)
+        self.conn = psycopg2.connection(psycopg2.connect(**dsn_dict))
         self.cur = self.conn.cursor()
         self.ensure_table_exists()
 
