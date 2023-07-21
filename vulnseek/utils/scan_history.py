@@ -9,14 +9,10 @@ class ScanHistory:
     def __init__(self):
         self.history = HistoryStore()
 
-    def view_last(self):
+    def get_last(self) -> HistoryStructure:
         db_row = self.history.view_latest_one()
-        tbl = PrettyTable(ScanHistory.headers)
-        tbl.add_row(db_row)
-        tbl.del_column(ScanHistory.headers[0])
-
-        print(tbl)
-        input()
+        history_row = HistoryStructure.from_row(db_row)
+        return history_row
 
     def view_history(self):
         db_rows = self.history.view_latest_n(50, 0)

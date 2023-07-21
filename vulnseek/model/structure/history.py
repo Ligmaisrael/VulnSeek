@@ -36,3 +36,14 @@ class HistoryStructure:
     @staticmethod
     def builder() -> HistoryStructureBuilder:
         return HistoryStructureBuilder()
+
+    @staticmethod
+    def from_row(row):
+        return (
+            HistoryStructure.builder()
+            .scan_id(row[0])
+            .scan_type(row[1])
+            .timestamp(row[2])
+            .target_url(row[3])
+            .build()
+        )

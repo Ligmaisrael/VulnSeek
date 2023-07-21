@@ -1,5 +1,6 @@
 from attacks.interface import AttackInterface
 from utils.print import *
+from utils.scan_detail import ScanDetail
 from utils.scan_history import ScanHistory
 
 
@@ -31,7 +32,9 @@ class Menu:
                 self.attacks[choice].run()
                 choice = -1
             elif choice == len(self.attacks) + 1:
-                self.scan_history.view_last()
+                last_scan = self.scan_history.get_last()
+                scan_detail = ScanDetail(last_scan)
+                scan_detail.view()
             elif choice == len(self.attacks) + 2:
                 self.scan_history.view_history()
 
