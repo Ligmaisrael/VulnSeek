@@ -41,18 +41,29 @@ class HistoryStore(StoreInterface):
         self.conn.commit()
         return self.cur.fetchone()[0]
 
-    def get_new_scan_id(self):
+    def view_latest_one(self) -> HistoryStructure:
         self.cur.execute(
             f"""
-            SELECT
-                scan_id
-            FROM
-                {self.table_name}
+            SELECT *
+            FROM {self.table_name}
             ORDER BY
-                scan_id
+                timestamp
                 DESC
             LIMIT 1
             """
         )
-        last_scan_id = self.cur.fetchone()[0]
-        return last_scan_id + 1
+        return self.cur.fetchone()
+
+    def view_latest_n(self, n: int, offset: int) -> list[tuple]:
+        self.cur.execute(
+            f"""
+            SELECT *
+            FROM {self.table_name}
+            ORDER BY
+                timestamp
+                DESC
+            LIMIT {n}
+            OFFSET {offset}
+            """
+        )
+        return self.cur.fetchall()

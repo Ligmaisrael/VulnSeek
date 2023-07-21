@@ -15,7 +15,7 @@ class DirectoryBruteForce(AttackInterface):
         self.history_store = HistoryStore()
 
     def title(self):
-        return "Directory Brute Force"
+        return "Directory brute force"
 
     def prompt_for_params(self):
         self.url = prompt_param_required("URL with scheme (e.g. http://127.0.0.1:8080)")

@@ -5,10 +5,18 @@ class HistoryStructureBuilder:
     def build(self):
         return self.history_structure
 
+    def scan_id(self, scan_id):
+        self.history_structure.scan_id = scan_id
+        return self
+
     def scan_type(self, scan_type):
         if scan_type not in HistoryStructure.supported_scan_types:
-            raise AttributeError
+            raise AttributeError(scan_type)
         self.history_structure.scan_type = scan_type
+        return self
+
+    def timestamp(self, timestamp):
+        self.history_structure.timestamp = timestamp
         return self
 
     def target_url(self, target_url):
@@ -20,7 +28,9 @@ class HistoryStructure:
     supported_scan_types = ["dir_bf"]
 
     def __init__(self):
+        self.scan_id = None
         self.scan_type = None
+        self.timestamp = None
         self.target_url = None
 
     def builder(self) -> HistoryStructureBuilder:

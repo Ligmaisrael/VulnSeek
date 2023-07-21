@@ -1,6 +1,6 @@
-import sys
-from os import system
 from attacks.interface import AttackInterface
+from utils.print import *
+from utils.scan_history import ScanHistory
 
 
 class Menu:
@@ -12,6 +12,7 @@ class Menu:
                     f"all attacks must be a subclass of AttackInterface, {type(atk)} is not"
                 )
         self.attacks = attacks
+        self.scan_history = ScanHistory()
 
     def run(self):
         choice = -1
@@ -24,12 +25,15 @@ class Menu:
 
             if choice == 0:
                 self.quit()
-            elif choice > 0:
+            elif choice > 0 and choice <= len(self.attacks):
                 choice -= 1
                 self.attacks[choice].prompt_for_params()
                 self.attacks[choice].run()
                 choice = -1
-        return
+            elif choice == len(self.attacks) + 1:
+                self.scan_history.view_last()
+            elif choice == len(self.attacks) + 2:
+                self.scan_history.view_history()
 
     def prompt(self):
         print("Please choose one of the above options")
@@ -43,7 +47,7 @@ class Menu:
         except KeyboardInterrupt:
             self.quit()
 
-        if choice > len(self.attacks):
+        if choice > len(self.attacks) + 2:
             clear_screen_with_message("Please choose one of the available options")
             return -1
         return choice
@@ -51,26 +55,11 @@ class Menu:
     def list_entries(self):
         for atk in self.attacks:
             print(f"{self.attacks.index(atk) + 1}. {atk.title()}")
+        print(f"{len(self.attacks)+1}. View last scan result")
+        print(f"{len(self.attacks)+2}. View scan history")
         print("0. Quit")
-        return
 
     def quit(self):
         print()
         print("Thank you for using VulnSeek")
         exit(0)
-        return
-
-
-print_without_newline = sys.stdout.write
-
-
-def clear_screen():
-    system("clear -x")
-
-
-def clear_screen_with_message(message):
-    clear_screen()
-    print(message)
-    print("Press enter to continue")
-    input()
-    clear_screen()
