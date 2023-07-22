@@ -1,3 +1,6 @@
+from textwrap import dedent
+
+
 class HistoryStructureBuilder:
     def __init__(self) -> None:
         self.history_structure = HistoryStructure()
@@ -24,6 +27,11 @@ class HistoryStructureBuilder:
         return self
 
 
+SCAN_TYPE_TO_SCAN_NAME = {
+    "dir_bf": "Directory brute force",
+}
+
+
 class HistoryStructure:
     supported_scan_types = ["dir_bf"]
 
@@ -46,4 +54,16 @@ class HistoryStructure:
             .timestamp(row[2])
             .target_url(row[3])
             .build()
+        )
+
+    def export_as_md(self) -> str:
+        return dedent(
+            f"""
+            # Scan Overview
+
+            - Scan type: {SCAN_TYPE_TO_SCAN_NAME.get(self.scan_type)}
+            - Time of scan: {self.timestamp}
+            - Scan target: {self.target_url}
+            
+            """
         )

@@ -40,7 +40,7 @@ class HistoryStore(StoreInterface):
         self.conn.commit()
         return self.cur.fetchone()[0]
 
-    def view_latest_one(self) -> HistoryStructure:
+    def view_latest_one(self) -> tuple:
         self.cur.execute(
             f"""
             SELECT *

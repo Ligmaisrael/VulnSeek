@@ -1,4 +1,6 @@
-from utils.print import clear_screen_with_message, quit_with_msg
+from utils.print import quit_with_msg
+
+PROMPT = "> "
 
 
 def validate_number_selection(max: int) -> int:
@@ -10,7 +12,7 @@ def validate_number_selection(max: int) -> int:
     """
     while True:
         try:
-            choice = int(input("> "))
+            choice = int(input(PROMPT))
         except ValueError:
             print("Please input a number")
             continue
@@ -20,8 +22,6 @@ def validate_number_selection(max: int) -> int:
         if choice > max or choice < 0:
             print(f"Please choose one of the available options from 0 to {max}")
             continue
-        elif choice == 0:
-            quit_with_msg()
 
         return choice
 
@@ -38,7 +38,7 @@ def prompt_param_required(param_name):
         else:
             print("Please input a non-empty value for", param_name)
 
-        value = input()
+        value = input(PROMPT)
         tried = True
 
     return value
@@ -51,7 +51,7 @@ def prompt_param_with_default_value(param_name, default_value):
     """
     print("Please input the", param_name)
     print("You can also just press enter and it will default to", default_value)
-    value = input()
+    value = input(PROMPT)
     if len(value) == 0:
         value = default_value
 
@@ -68,7 +68,7 @@ def prompt_param_with_default_value_and_name(
     """
     print("Please input the", param_name)
     print("You can also just press enter and it will default to", default_value_name)
-    value = input()
+    value = input(PROMPT)
     if len(value) == 0:
         value = default_value
 

@@ -21,7 +21,9 @@ class Menu:
             self.show_menu()
             choice = validate_number_selection(len(self.attacks) + 2)
 
-            if choice == len(self.attacks) + 1:
+            if choice == 0:
+                quit_with_msg()
+            elif choice == len(self.attacks) + 1:
                 last_scan = self.scan_history.get_last()
                 last_scan_detail = ScanDetail(last_scan)
                 last_scan_detail.view()
