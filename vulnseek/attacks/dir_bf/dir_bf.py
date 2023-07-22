@@ -1,11 +1,11 @@
-from attacks.interface import AttackInterface
-from utils.prompt import *
-from model.loot import LootStore
 import requests
-from model.structure.loot import LootStructure
+from attacks.interface import AttackInterface
 from model.history import HistoryStore
+from model.loot import LootStore
 from model.structure.history import HistoryStructure
+from model.structure.loot import LootStructure
 from utils.print import clear_line, space
+from utils.prompt import *
 
 
 class DirectoryBruteForce(AttackInterface):
@@ -51,7 +51,7 @@ class DirectoryBruteForce(AttackInterface):
                     .endpoint(endpoint)
                     .payload(endpoint)
                     .response_code(r.status_code)
-                    .response_headers(str(r.headers))
+                    .response_headers(r.headers)
                     .response_body(r.text)
                     .build()
                 )

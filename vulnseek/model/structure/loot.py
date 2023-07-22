@@ -1,3 +1,8 @@
+import pprint
+
+from requests.structures import CaseInsensitiveDict
+
+
 class LootStructureBuilder:
     def __init__(self) -> None:
         self.loot_structure = LootStructure()
@@ -21,8 +26,15 @@ class LootStructureBuilder:
         self.loot_structure.response_code = response_code
         return self
 
-    def response_headers(self, response_headers):
-        self.loot_structure.response_headers = response_headers
+    def response_headers(self, response_headers: CaseInsensitiveDict):
+        pretty_headers = (
+            pprint.pformat(dict(response_headers))
+            .removeprefix("{")
+            .removesuffix("}")
+            .replace(",", "")
+            .replace("\n ", "\n")
+        )
+        self.loot_structure.response_headers = pretty_headers
         return self
 
     def response_body(self, response_body):
@@ -40,5 +52,5 @@ class LootStructure:
         self.response_body = None
 
     @staticmethod
-    def builder(self) -> LootStructureBuilder:
+    def builder() -> LootStructureBuilder:
         return LootStructureBuilder()
