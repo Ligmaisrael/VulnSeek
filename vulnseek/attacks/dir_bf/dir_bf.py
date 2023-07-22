@@ -26,6 +26,8 @@ class DirectoryBruteForce(AttackInterface):
         )
 
     def run(self):
+        self.prompt_for_params()
+
         wordlist = open(self.path_to_wordlist, "r")
         print("reading from wordlist file", self.path_to_wordlist)
         scan_id = self.history_store.store_one(

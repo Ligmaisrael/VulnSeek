@@ -11,6 +11,8 @@ class AttackInterface:
         """
         Runs functions related to prompting the user to input parameters
         needed to run the attack
+
+        Must be called by run()
         """
         raise NotImplementedError
 

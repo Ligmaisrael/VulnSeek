@@ -1,8 +1,4 @@
 from os import system
-import sys
-
-
-print_without_newline = sys.stdout.write
 
 
 def clear_screen():
@@ -23,3 +19,9 @@ def clear_line():
 
 def space(n):
     return " " * n
+
+
+def quit_with_msg():
+    print()
+    print("Thank you for using VulnSeek")
+    exit(0)

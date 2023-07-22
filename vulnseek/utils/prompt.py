@@ -1,3 +1,31 @@
+from utils.print import clear_screen_with_message, quit_with_msg
+
+
+def validate_number_selection(max: int) -> int:
+    """
+    Validates that the user will input an integer within
+    the specified inclusive range of 0 to max
+
+    Handles KeyboardInterrupt
+    """
+    while True:
+        try:
+            choice = int(input("> "))
+        except ValueError:
+            print("Please input a number")
+            continue
+        except KeyboardInterrupt:
+            quit_with_msg()
+
+        if choice > max or choice < 0:
+            print(f"Please choose one of the available options from 0 to {max}")
+            continue
+        elif choice == 0:
+            quit_with_msg()
+
+        return choice
+
+
 def prompt_param_required(param_name):
     """
     Prompts the user to input a non-empty string value for param_name and returns it
