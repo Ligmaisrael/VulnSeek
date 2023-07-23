@@ -1,6 +1,8 @@
 import os
 from io import TextIOWrapper
+from textwrap import dedent
 
+from model.cvss import CvssStore
 from model.history import HistoryStore
 from model.loot import LootStore
 from model.structure.history import HistoryStructure
@@ -22,6 +24,7 @@ def export_to_md_file(scan_id) -> bool:
     output_file = open(filename, "w")
 
     scan = _export_scan_history(output_file, scan_id)
+    _export_cvss_score(output_file, scan.scan_type)
     _export_scan_loots(output_file, scan)
 
     output_file.close()
@@ -37,6 +40,21 @@ def _export_scan_history(output_file: TextIOWrapper, scan_id: int) -> HistoryStr
     scan = HistoryStructure.from_row(scan_from_db)
     output_file.write(scan.export_as_md())
     return scan
+
+
+def _export_cvss_score(output_file: TextIOWrapper, scan_type: str):
+    cvss_store = CvssStore()
+    score = cvss_store.get_by_scan_type(scan_type)
+    output_file.write(
+        dedent(
+            f"""
+            ## CVSS Score
+
+            > {score}
+
+            """
+        )
+    )
 
 
 def _export_scan_loots(output_file: TextIOWrapper, scan: HistoryStructure):
