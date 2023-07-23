@@ -66,3 +66,15 @@ class HistoryStore(StoreInterface):
             """
         )
         return self.cur.fetchall()
+
+    def get_by_scan_id(self, scan_id: int):
+        self.cur.execute(
+            f"""
+            SELECT *
+            FROM {self.table_name}
+            WHERE
+                scan_id = %s
+            """,
+            (scan_id,),
+        )
+        return self.cur.fetchone()
