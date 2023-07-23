@@ -26,7 +26,7 @@ def export_to_md_file(scan_id) -> bool:
 
     output_file.close()
     print(f'Successfully saved to "{filename}"')
-    print("Now returning you to the main menu")
+    print("Now returning you back")
     input()
     return True
 
